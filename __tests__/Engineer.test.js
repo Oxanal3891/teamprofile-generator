@@ -1,4 +1,5 @@
 const Engineer = require("../lib/Engineer");
+const { expect } = require('@jest/globals');
 
 test("Can set GitHUb account via constructor", () => {
   const testValue = "GitHubUser";
