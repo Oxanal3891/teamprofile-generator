@@ -1,0 +1,22 @@
+{
+  "name": "teamprofile-generator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Oxanal3891/teamprofile-generator.git"
+  },
+  "author": "Oxana Latypova",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Oxanal3891/teamprofile-generator/issues"
+  },
+  "homepage": "https://github.com/Oxanal3891/teamprofile-generator#readme"
+}
