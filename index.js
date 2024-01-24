@@ -83,7 +83,7 @@ class Prompt {
                 this.questions();
             })
             .then((getAnswers) => {
-                return inquirer.prompt([
+                inquirer.prompt([
                     {
                         type: 'list',
                         name: 'menuOption',
@@ -97,71 +97,71 @@ class Prompt {
                             fs.writeFile('./dist/index.html', pagehtml, err => {
                                 if (err) throw new Error(err);
                                 console.log('Index.html has been created');
-                            })
+                            });
                         }
-                        else {
-                            if (menuOption === 'Add an engineer') {
-                                inquirer.prompt([
-                                    {
-                                        type: 'input',
-                                        name: 'name',
-                                        message: "Enter this person's name",
-                                        validate: nameInput => {
-                                            if (nameInput) {
-                                                return true;
-                                            } else {
-                                                console.log("Enter something");
-                                                return false;
-                                            }
-                                        }
-                                    },
-                                    {
-                                        type: 'number',
-                                        name: 'id',
-                                        message: "Enter this person's id",
-                                        validate: idInput => {
-                                            if (idInput) {
-                                                return true;
-                                            } else {
-                                                console.log("Enter something");
-                                                return false;
-                                            }
-                                        }
-                                    },
-                                    {
-                                        type: 'input',
-                                        name: 'email',
-                                        message: "Enter this person's email",
-                                        validate: emailInput => {
-                                            if (emailInput) {
-                                                return true;
-                                            } else {
-                                                console.log("Enter something");
-                                                return false;
-                                            }
-                                        }
-                                    },
-                                    {
-                                        type: 'input',
-                                        name: 'github',
-                                        message: "Enter this person's github username",
-                                        validate: githubInput => {
-                                            if (githubInput) {
-                                                return true;
-                                            } else {
-                                                console.log("Enter something");
-                                                return false;
-                                            }
+                        else if (menuOption === 'Add an engineer') {
+                            inquirer.prompt([
+                                {
+                                    type: 'input',
+                                    name: 'name',
+                                    message: "Enter this person's name",
+                                    validate: nameInput => {
+                                        if (nameInput) {
+                                            return true;
+                                        } else {
+                                            console.log("Enter something");
+                                            return false;
                                         }
                                     }
-                                ]).then(templateData => {
+                                },
+                                {
+                                    type: 'number',
+                                    name: 'id',
+                                    message: "Enter this person's id",
+                                    validate: idInput => {
+                                        if (idInput) {
+                                            return true;
+                                        } else {
+                                            console.log("Enter something");
+                                            return false;
+                                        }
+                                    }
+                                },
+                                {
+                                    type: 'input',
+                                    name: 'email',
+                                    message: "Enter this person's email",
+                                    validate: emailInput => {
+                                        if (emailInput) {
+                                            return true;
+                                        } else {
+                                            console.log("Enter something");
+                                            return false;
+                                        }
+                                    }
+                                },
+                                {
+                                    type: 'input',
+                                    name: 'github',
+                                    message: "Enter this person's github username",
+                                    validate: githubInput => {
+                                        if (githubInput) {
+                                            return true;
+                                        } else {
+                                            console.log("Enter something");
+                                            return false;
+                                        }
+                                    }
+                                }
+                            ])
+                                .then(templateData => {
                                     const newEngineer = new Engineer(templateData.name, templateData.id, templateData.email, templateData.github);
                                     this.teamArray.push(newEngineer);
                                     this.questions();
-                                })
-                            }
+                                });
+                            return getAnswers();
                         }
-else if (menuOption === 'Add an intern') {
+                        else if (menuOption === 'Add an intern') {
                             inquirer.prompt([
                                 {
                                     type: 'input',
@@ -222,306 +222,13 @@ else if (menuOption === 'Add an intern') {
                                     this.questions();
                                 })
                         }
+                        return getAnswers();
                     })
-
-
-
-
-
-
-
-
-                return getAnswers();
-            }
-});
-}
-
-
-
-
-
-
-
-({ menuOption }) => {
-    if (menuOption === 'Finish building the team') {
-        const pagehtml = generateHTML(this.getTeamArray());
-        fs.writeFile('./dist/index.html', pagehtml, err => {
-            if (err) throw new Error(err);
-            console.log('Index.html has been created');
-        });
-
-    }
-    else if (menuOption === 'Add an engineer') {
-        inquirer.prompt([
-            {
-                type: 'input',
-                name: 'name',
-                message: "Enter this person's name",
-                validate: nameInput => {
-                    if (nameInput) {
-                        return true;
-                    } else {
-                        console.log("Enter something");
-                        return false;
-                    }
-                }
-            },
-            {
-                type: 'number',
-                name: 'id',
-                message: "Enter this person's id",
-                validate: idInput => {
-                    if (idInput) {
-                        return true;
-                    } else {
-                        console.log("Enter something");
-                        return false;
-                    }
-                }
-            },
-            {
-                type: 'input',
-                name: 'email',
-                message: "Enter this person's email",
-                validate: emailInput => {
-                    if (emailInput) {
-                        return true;
-                    } else {
-                        console.log("Enter something");
-                        return false;
-                    }
-                }
-            },
-            {
-                type: 'input',
-                name: 'github',
-                message: "Enter this person's github username",
-                validate: githubInput => {
-                    if (githubInput) {
-                        return true;
-                    } else {
-                        console.log("Enter something");
-                        return false;
-                    }
-                }
-            }
-        ]).then(templateData => {
-            const newEngineer = new Engineer(templateData.name, templateData.id, templateData.email, templateData.github);
-            this.teamArray.push(newEngineer);
-            this.questions();
-        })
-    }
-    else if (menuOption === 'Add an intern') {
-        inquirer.prompt([
-            {
-                type: 'input',
-                name: 'name',
-                message: "Enter this person's name",
-                validate: nameInput => {
-                    if (nameInput) {
-                        return true;
-                    } else {
-                        console.log("Enter something");
-                        return false;
-                    }
-                }
-            },
-            {
-                type: 'number',
-                name: 'id',
-                message: "Enter this person's id",
-                validate: idInput => {
-                    if (idInput) {
-                        return true;
-                    } else {
-                        console.log("Enter something");
-                        return false;
-                    }
-                }
-            },
-            {
-                type: 'input',
-                name: 'email',
-                message: "Enter this person's email",
-                validate: emailInput => {
-                    if (emailInput) {
-                        return true;
-                    } else {
-                        console.log("Enter something");
-                        return false;
-                    }
-                }
-            },
-            {
-                type: 'input',
-                name: 'school',
-                message: "Enter this person's school",
-                validate: schoolInput => {
-                    if (schoolInput) {
-                        return true;
-                    } else {
-                        console.log("Enter something");
-                        return false;
-                    }
-                }
-            }
-        ])
-            .then(templateData => {
-                const newIntern = new Intern(templateData.name, templateData.id, templateData.email, templateData.school);
-                this.teamArray.push(newIntern);
-                this.questions();
             })
     }
-})
+};
 
+const prompt = new Prompt();
+prompt.questions();
 
-
-
-
-
-
-
-
-({ menuOption }) => {
-    if (menuOption === 'Finish building the team') {
-        const pagehtml = generateHTML(this.getTeamArray());
-        fs.writeFile('./dist/index.html', pagehtml, err => {
-            if (err) throw new Error(err);
-            console.log('Index.html has been created');
-        });
-
-    }
-    else if (menuOption === 'Add an engineer') {
-        inquirer.prompt([
-            {
-                type: 'input',
-                name: 'name',
-                message: "Enter this person's name",
-                validate: nameInput => {
-                    if (nameInput) {
-                        return true;
-                    } else {
-                        console.log("Enter something");
-                        return false;
-                    }
-                }
-            },
-            {
-                type: 'number',
-                name: 'id',
-                message: "Enter this person's id",
-                validate: idInput => {
-                    if (idInput) {
-                        return true;
-                    } else {
-                        console.log("Enter something");
-                        return false;
-                    }
-                }
-            },
-            {
-                type: 'input',
-                name: 'email',
-                message: "Enter this person's email",
-                validate: emailInput => {
-                    if (emailInput) {
-                        return true;
-                    } else {
-                        console.log("Enter something");
-                        return false;
-                    }
-                }
-            },
-            {
-                type: 'input',
-                name: 'github',
-                message: "Enter this person's github username",
-                validate: githubInput => {
-                    if (githubInput) {
-                        return true;
-                    } else {
-                        console.log("Enter something");
-                        return false;
-                    }
-                }
-            }
-        ]).then(templateData => {
-            const newEngineer = new Engineer(templateData.name, templateData.id, templateData.email, templateData.github);
-            this.teamArray.push(newEngineer);
-            this.questions();
-        })
-    }
-    else if (menuOption === 'Add an intern') {
-        inquirer.prompt([
-            {
-                type: 'input',
-                name: 'name',
-                message: "Enter this person's name",
-                validate: nameInput => {
-                    if (nameInput) {
-                        return true;
-                    } else {
-                        console.log("Enter something");
-                        return false;
-                    }
-                }
-            },
-            {
-                type: 'number',
-                name: 'id',
-                message: "Enter this person's id",
-                validate: idInput => {
-                    if (idInput) {
-                        return true;
-                    } else {
-                        console.log("Enter something");
-                        return false;
-                    }
-                }
-            },
-            {
-                type: 'input',
-                name: 'email',
-                message: "Enter this person's email",
-                validate: emailInput => {
-                    if (emailInput) {
-                        return true;
-                    } else {
-                        console.log("Enter something");
-                        return false;
-                    }
-                }
-            },
-            {
-                type: 'input',
-                name: 'school',
-                message: "Enter this person's school",
-                validate: schoolInput => {
-                    if (schoolInput) {
-                        return true;
-                    } else {
-                        console.log("Enter something");
-                        return false;
-                    }
-                }
-            }
-        ])
-            .then(templateData => {
-                const newIntern = new Intern(templateData.name, templateData.id, templateData.email, templateData.school);
-                this.teamArray.push(newIntern);
-                this.questions();
-            })
-    }
-})
-            }
-}
-
-function getAnswers() {
-    return inquirer.prompt(questions).then((answers) => {
-        if (answers.is_finished) {
-            return answers;
-        } else {
-            return getAnswers();
-        }
-    });
-}
+module.exports = Prompt;
