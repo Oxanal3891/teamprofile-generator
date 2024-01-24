@@ -93,7 +93,7 @@ class Prompt {
                 ])
                     .then(({ menuOption }) => {
                         if (menuOption === 'Finish building the team') {
-                            const pagehtml = generateHTML(this.getTeamArray());
+                            const pagehtml = render(this.getTeamArray());
                             fs.writeFile('./dist/index.html', pagehtml, err => {
                                 if (err) throw new Error(err);
                                 console.log('Index.html has been created');
